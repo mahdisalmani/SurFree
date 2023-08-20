@@ -64,7 +64,7 @@ if __name__ == "__main__":
     print("Load Data")
     X = []
     transform = T.Compose([T.Resize(256), T.CenterCrop(224)])
-    for image_i in range(args.n_images):
+    for image_i in range(1, args.n_images+1):
         image_name = format(image_i, '08d')
         X.append(transform(read_image(os.path.join("./images", f"ILSVRC2012_val_{image_name}.JPEG"), mode=ImageReadMode.RGB)).unsqueeze(0))
     X = torch.cat(X, 0) / 255
