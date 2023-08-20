@@ -101,7 +101,7 @@ if __name__ == "__main__":
     print("Results")
     labels_advs = model(advs).argmax(1)
     nqueries = f_attack.get_nqueries()
-    advs_l2 = (X - advs).norm(dim=[1, 2]).norm(dim=1)
+    advs_l2 = (X - advs).flatten(1).norm(dim=1)
     for image_i in range(len(X)):
         print("Adversarial Image {}:".format(image_i))
         label_o = int(y[image_i])
