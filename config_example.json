@@ -5,7 +5,7 @@
             "basis_type": "dct",
 	        "dct_type": "full",
             "function": "constant",
-            "frequence_range": [0, 0.5]
+            "frequence_range": [0, 0.25]
         }
     },
     "init": {
