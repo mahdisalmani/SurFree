@@ -101,7 +101,6 @@ if __name__ == "__main__":
 
     advs, results = f_attack(model, X, y, **config["run"])
     print("{:.2f} s to run".format(time.time() - time_start))
-    print(results)
     ###############################
     base_v = config['run']['basis_type']
     dct_v = config['run']['dct_type']
