@@ -146,7 +146,6 @@ class SurFree():
         #print("Final adversarial", self._criterion_is_adversarial(self.best_advs).raw.cpu().tolist())
         if self.quantification:
             self.best_advs = self._quantify(self.best_advs)
-        results.append((distance(X, self.best_advs).cpu().tolist(), self._nqueries))
 
         return self.best_advs, results
 
