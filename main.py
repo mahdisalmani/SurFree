@@ -64,13 +64,9 @@ if __name__ == "__main__":
     print("Load Data")
     X = []
     transform = T.Compose([T.Resize(256), T.CenterCrop(224)])
-    images_num = 0
-    for img in os.listdir("./images"):
-        if images_num == args.n_images:
-            break
-        print(img)        
-        X.append(transform(read_image(os.path.join("./images", img), mode=ImageReadMode.RGB)).unsqueeze(0))
-        images_num += 1
+    for image_i in range(args.n_images):
+        image_name = format(image_i, '08d')
+        X.append(transform(read_image(os.path.join("./images", "ILSVRC2012_val_{image_name}.JPEG"), mode=ImageReadMode.RGB)).unsqueeze(0))
     X = torch.cat(X, 0) / 255
     y = model(X).argmax(1)
 
