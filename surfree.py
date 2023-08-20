@@ -133,8 +133,9 @@ class SurFree():
                 best_candidates, 
                 self.best_advs
                 )
-            results.append((distance(X, self.best_advs).cpu().tolist(), self._nqueries))
+            results.append((distance(X, self.best_advs).cpu().tolist(), self._nqueries.cpu().tolist()))
             print("Best Advs distance:", distance(X, self.best_advs).cpu().numpy())
+            print("Number of queries:", self._nqueries.cpu().tolist())
             if self._images_finished.all():
                 print("Max queries attained for all the images.")
                 break
