@@ -66,6 +66,7 @@ if __name__ == "__main__":
     transform = T.Compose([T.Resize(256), T.CenterCrop(224)])
     for img in os.listdir("./images"):
         X.append(transform(read_image(os.path.join("./images", img))).unsqueeze(0))
+        print(X[-1].shape)
     X = torch.cat(X, 0) / 255
     y = model(X).argmax(1)
 
