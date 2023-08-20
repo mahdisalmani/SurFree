@@ -451,6 +451,7 @@ class Basis:
     def _get_vector_dct(self, indexes) -> torch.Tensor:
         probs = self.X[indexes].uniform_(0, 3).long() - 1
         r_np = self.dcts[indexes] * probs
+        print(indexes)
         r_np = self._inverse_dct(r_np)
         new_v = torch.zeros_like(self.X)
         new_v[indexes] = (r_np + self.X[indexes].normal_(std=self._beta))
