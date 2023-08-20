@@ -174,9 +174,8 @@ class SurFree():
         epsilon = torch.zeros(len(self.X)).to(self.X.device)
         direction_2 = torch.zeros_like(self.X)
         distances = (self.X - self.best_advs).flatten(1).norm(dim=1)
+        epsilon = torch.where(self._images_finished, torch.ones_like(epsilon), epsilon)
         while (epsilon == 0).any():
-            epsilon = torch.where(self._images_finished, torch.ones_like(epsilon), epsilon)
-
             new_directions = self._basis.get_vector(self._directions_ortho, indexes = [i for i, eps in enumerate(epsilon) if eps == 0])
             
             direction_2 = torch.where(
@@ -214,6 +213,7 @@ class SurFree():
             self.theta_max = torch.where(new_epsilons == 0, self.theta_max * self.rho, self.theta_max)
             self.theta_max = torch.where((new_epsilons != 0) * (epsilon == 0), self.theta_max / self.rho, self.theta_max)
             epsilon = torch.where((new_epsilons != 0) * (epsilon == 0), new_epsilons, epsilon)
+            epsilon = torch.where(self._images_finished, torch.ones_like(epsilon), epsilon)
 
         function_evolution = self._get_evolution_function(direction_2)
         if self.with_alpha_line_search:
@@ -451,7 +451,6 @@ class Basis:
     def _get_vector_dct(self, indexes) -> torch.Tensor:
         probs = self.X[indexes].uniform_(0, 3).long() - 1
         r_np = self.dcts[indexes] * probs
-        print(indexes)
         r_np = self._inverse_dct(r_np)
         new_v = torch.zeros_like(self.X)
         new_v[indexes] = (r_np + self.X[indexes].normal_(std=self._beta))
