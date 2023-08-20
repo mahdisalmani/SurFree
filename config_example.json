@@ -9,8 +9,6 @@
         }
     },
     "init": {
-        // "steps": 50,
-        // "max_queries": 500,
         "steps": 100,
         "max_queries": 5000,
         "BS_gamma": 0.01,
