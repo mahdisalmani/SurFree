@@ -64,8 +64,13 @@ if __name__ == "__main__":
     print("Load Data")
     X = []
     transform = T.Compose([T.Resize(256), T.CenterCrop(224)])
+    images_num = 0
     for img in os.listdir("./images"):
+        if images_num == args.n_images:
+            break
+        print(img)        
         X.append(transform(read_image(os.path.join("./images", img), mode=ImageReadMode.RGB)).unsqueeze(0))
+        images_num += 1
     X = torch.cat(X, 0) / 255
     y = model(X).argmax(1)
 
@@ -80,8 +85,9 @@ if __name__ == "__main__":
         X = X.cuda(0)
         y = y.cuda(0)
 
-    advs = f_attack(model, X, y, **config["run"])
+    advs, results = f_attack(model, X, y, **config["run"])
     print("{:.2f} s to run".format(time.time() - time_start))
+    print(results)
 
     ###############################
     print("Results")

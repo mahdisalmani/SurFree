@@ -113,7 +113,8 @@ class SurFree():
 
         # Load Basis
         self._basis = Basis(self.X, **kwargs["basis_params"]) if "basis_params" in kwargs else Basis(self.X)
-
+        results = []
+        results.append(distance(X, self.best_advs).cpu().tolist())
         for step_i in range(self._steps):
             print("Step:", step_i)
             # Get candidates. Shape: (n_candidates, batch_size, image_size)
@@ -132,6 +133,7 @@ class SurFree():
                 best_candidates, 
                 self.best_advs
                 )
+            results.append(distance(X, self.best_advs).cpu().tolist())
             print("Best Advs distance:", distance(X, self.best_advs).cpu().numpy())
             if self._images_finished.all():
                 print("Max queries attained for all the images.")
@@ -144,7 +146,7 @@ class SurFree():
         if self.quantification:
             self.best_advs = self._quantify(self.best_advs)
 
-        return self.best_advs
+        return self.best_advs, results
 
     def _is_adversarial(self, perturbed):
         # Faster than true_is_adversarial in batch  (time gain 20% )
