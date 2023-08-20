@@ -76,9 +76,10 @@ if __name__ == "__main__":
         ground_label_int = int(ground_label)
         x_i = transform(read_image(os.path.join("./images", f"ILSVRC2012_val_{image_name}.JPEG"), mode=ImageReadMode.RGB)).unsqueeze(0)
         y_i = model(x_i / 255).argmax(1)[0]
-        if not y_i == ground_label_int:
-            continue
-        X.append(x_i)
+        if y_i == ground_label_int:
+            X.append(x_i)
+        else:
+            print(image_name)
     X = torch.cat(X, 0) / 255
     y = model(X).argmax(1)
 
