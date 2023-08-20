@@ -3,14 +3,14 @@
         "epsilons": [null],
         "basis_params": {
             "basis_type": "dct",
-	        "dct_type": "full",
+	        "dct_type": "8x8",
             "function": "constant",
             "frequence_range": [0, 1]
         }
     },
     "init": {
-        "steps": 100,
-        "max_queries": 5000,
+        "steps": 1000,
+        "max_queries": 1000,
         "BS_gamma": 0.01,
         "BS_max_iteration": 10,
         "rho": 0.98,
