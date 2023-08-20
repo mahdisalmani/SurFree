@@ -28,6 +28,7 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output_folder", "-o", default="results_test/", help="Output folder")
     parser.add_argument("--n_images", "-n", type=int, default=2, help="N images attacks")
+    parser.add_argument("--start", "-s", type=int, default=1, help="N images attacks")
     parser.add_argument(
         "--config_path", 
         default="config_example.json", 
@@ -69,7 +70,7 @@ if __name__ == "__main__":
     print("Load Data")
     X = []
     transform = T.Compose([T.Resize(256), T.CenterCrop(224)])
-    for image_i in range(3, args.n_images+3):
+    for image_i in range(args.start, args.n_images+args.start):
         image_name = format(image_i, '08d')
         ground_name_label = ground_truth[image_i-1]
         ground_label =  ground_name_label.split()[1]
