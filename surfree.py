@@ -187,6 +187,7 @@ class SurFree():
                     self._alpha_history[i] = []
                 if eps_i == 0:
                     # Concatenate the first directions and the last directions generated
+                    print(len(self._directions_ortho[i]) - self.n_ortho)
                     self._directions_ortho[i] = torch.cat((
                         self._directions_ortho[i][:1],
                         self._directions_ortho[i][1 + len(self._directions_ortho[i]) - self.n_ortho:], 
