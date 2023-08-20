@@ -113,7 +113,7 @@ class SurFree():
         # Load Basis
         self._basis = Basis(self.X, **kwargs["basis_params"]) if "basis_params" in kwargs else Basis(self.X)
         results = []
-        results.append((distance(X, self.best_advs).cpu().tolist(), self._nqueries.cpu().tolist()))
+        results.append([distance(X, self.best_advs).cpu().tolist(), self._nqueries.cpu().tolist()])
         for step_i in range(self._steps):
             # Get candidates. Shape: (n_candidates, batch_size, image_size)
             candidates = self._get_candidates()
@@ -131,7 +131,7 @@ class SurFree():
                 best_candidates, 
                 self.best_advs
                 )
-            results.append((distance(X, self.best_advs).cpu().tolist(), self._nqueries.cpu().tolist()))
+            results.append([distance(X, self.best_advs).cpu().tolist(), self._nqueries.cpu().tolist()])
             if self._images_finished.all():
                 print("Max queries attained for all the images.")
                 break
