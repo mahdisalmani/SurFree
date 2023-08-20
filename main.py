@@ -109,14 +109,3 @@ if __name__ == "__main__":
         print("\t- Adversarial label: {}".format(imagenet_labels[str(label_adv)]))
         print("\t- l2 = {}".format(advs_l2[image_i]))
         print("\t- {} queries\n".format(nqueries[image_i])) 
-
-    ###############################
-    print("Save Results")
-    for image_i, o in enumerate(X):
-        o = np.array(o * 255).astype(np.uint8)
-        img_o = Image.fromarray(o.transpose(1, 2, 0), mode="RGB")
-        img_o.save(os.path.join(output_folder, "{}_original.jpg".format(image_i)))
-
-        adv_i = np.array(advs[image_i] * 255).astype(np.uint8)
-        img_adv_i = Image.fromarray(adv_i.transpose(1, 2, 0), mode="RGB")
-        img_adv_i.save(os.path.join(output_folder, "{}_adversarial.jpg".format(image_i)))
