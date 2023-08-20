@@ -3,7 +3,7 @@
         "epsilons": [null],
         "basis_params": {
             "basis_type": "dct",
-	        "dct_type": "8x8",
+	        "dct_type": "full",
             "function": "constant",
             "frequence_range": [0, 1]
         }

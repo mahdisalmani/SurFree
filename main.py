@@ -14,7 +14,7 @@ from surfree import SurFree
 
 
 def get_model():
-    model = torchvision.models.resnet18(pretrained=True).eval()
+    model = torchvision.models.resnet50(pretrained=True).eval()
     mean = torch.Tensor([0.485, 0.456, 0.406])
     std = torch.Tensor([0.229, 0.224, 0.225])
     normalizer = torchvision.transforms.Normalize(mean=mean, std=std)
