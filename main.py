@@ -102,9 +102,9 @@ if __name__ == "__main__":
     advs, results = f_attack(model, X, y, **config["run"])
     print("{:.2f} s to run".format(time.time() - time_start))
     ###############################
-    base_v = config['run']['basis_type']
-    dct_v = config['run']['dct_type']
-    freq_v = config['run']['frequence_range'][1]
+    base_v = config['run']['basis_params']['basis_type']
+    dct_v = config['run']['basis_params']['dct_type']
+    freq_v = config['run']['basis_params']['frequence_range'][1]
     np.save(f'{args.seed}_{base_v}_{dct_v}_{freq_v}_array.npy', results)
 
 
