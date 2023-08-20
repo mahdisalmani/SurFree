@@ -9,7 +9,7 @@ import torchvision
 
 from PIL import Image
 from torchvision import transforms as T
-from torchvision.io import read_image
+from torchvision.io import read_image, ImageReadMode
 from surfree import SurFree
 
 
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     X = []
     transform = T.Compose([T.Resize(256), T.CenterCrop(224)])
     for img in os.listdir("./images"):
-        X.append(transform(read_image(os.path.join("./images", img))).unsqueeze(0))
+        X.append(transform(read_image(os.path.join("./images", img), ImageReadMode=ImageReadMode.RGB)).unsqueeze(0))
         print(X[-1].shape)
     X = torch.cat(X, 0) / 255
     y = model(X).argmax(1)
