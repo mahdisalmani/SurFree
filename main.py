@@ -28,7 +28,8 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output_folder", "-o", default="results_test/", help="Output folder")
     parser.add_argument("--n_images", "-n", type=int, default=2, help="N images attacks")
-    parser.add_argument("--start", "-s", type=int, default=1, help="N images attacks")
+    parser.add_argument("--start", "-s", type=int, default=1)
+    parser.add_argument("--seed", type=int, default=0)
     parser.add_argument(
         "--config_path", 
         default="config_example.json", 
@@ -43,6 +44,11 @@ if __name__ == "__main__":
     output_folder = args.output_folder
     if not os.path.exists(output_folder):
         raise ValueError("{} doesn't exist.".format(output_folder))
+    
+    ###############################
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    torch.cuda.manual_seed(args.seed)
 
     ###############################
     print("Load Model")
@@ -96,6 +102,12 @@ if __name__ == "__main__":
     advs, results = f_attack(model, X, y, **config["run"])
     print("{:.2f} s to run".format(time.time() - time_start))
     print(results)
+    ###############################
+    base_v = config['run']['basis_type']
+    dct_v = config['run']['dct_type']
+    freq_v = config['run']['frequence_range'][1]
+    np.save(f'{args.seed}_{base_v}_{dct_v}_{freq_v}_array.npy', results)
+
 
     ###############################
     print("Results")
