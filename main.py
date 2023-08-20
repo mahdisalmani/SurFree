@@ -59,14 +59,26 @@ if __name__ == "__main__":
     ###############################
     print("Get understandable ImageNet labels")
     imagenet_labels = get_imagenet_labels()
-    
+
+
+    ###############################
+    print("Load Labels")
+    ground_truth  = open(os.path.join('val.txt'), 'r').read().split('\n')
+        
     ###############################
     print("Load Data")
     X = []
     transform = T.Compose([T.Resize(256), T.CenterCrop(224)])
     for image_i in range(1, args.n_images+1):
         image_name = format(image_i, '08d')
-        X.append(transform(read_image(os.path.join("./images", f"ILSVRC2012_val_{image_name}.JPEG"), mode=ImageReadMode.RGB)).unsqueeze(0))
+        ground_name_label = ground_truth[image_i-1]
+        ground_label =  ground_name_label.split()[1]
+        ground_label_int = int(ground_label)
+        x_i = transform(read_image(os.path.join("./images", f"ILSVRC2012_val_{image_name}.JPEG"), mode=ImageReadMode.RGB)).unsqueeze(0)
+        y_i = model(X).argmax(1)[0]
+        if not y_i == ground_label_int:
+            continue
+        X.append(x_i)
     X = torch.cat(X, 0) / 255
     y = model(X).argmax(1)
 
