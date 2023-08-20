@@ -135,13 +135,14 @@ class SurFree():
             if self._images_finished.all():
                 print("Max queries attained for all the images.")
                 break
-        print((distance(X, self.best_advs).cpu().tolist(), self._nqueries.cpu().tolist()))
         if self.final_line_search:
             self.best_advs = self._binary_search(self.best_advs,  boost=False)
 
         #print("Final adversarial", self._criterion_is_adversarial(self.best_advs).raw.cpu().tolist())
         if self.quantification:
             self.best_advs = self._quantify(self.best_advs)
+
+        print((distance(X, self.best_advs).cpu().tolist(), self._nqueries.cpu().tolist()))
 
         return self.best_advs, results
 
