@@ -103,7 +103,6 @@ class SurFree():
         # Check if X are already adversarials.
         self._images_finished = model(X).argmax(1) != labels
 
-        print("Already advs: ", self._images_finished.cpu().tolist())
         self.best_advs = torch.where(atleast_kdim(self._images_finished, len(X.shape)), X, self.best_advs)
         self.best_advs = self._binary_search(self.best_advs, boost=True)
 
@@ -116,7 +115,6 @@ class SurFree():
         results = []
         results.append((distance(X, self.best_advs).cpu().tolist(), self._nqueries))
         for step_i in range(self._steps):
-            print("Step:", step_i)
             # Get candidates. Shape: (n_candidates, batch_size, image_size)
             candidates = self._get_candidates()
             candidates = candidates.transpose(1, 0)
@@ -134,8 +132,6 @@ class SurFree():
                 self.best_advs
                 )
             results.append((distance(X, self.best_advs).cpu().tolist(), self._nqueries.cpu().tolist()))
-            print("Best Advs distance:", distance(X, self.best_advs).cpu().numpy())
-            print("Number of queries:", self._nqueries.cpu().tolist())
             if self._images_finished.all():
                 print("Max queries attained for all the images.")
                 break
