@@ -78,7 +78,7 @@ if __name__ == "__main__":
     ###############################
     print("Load Data")
     X = []
-    transform = T.Compose([T.Resize(224, antialias=True), T.CenterCrop(224)])
+    transform = T.Compose([T.Resize(256, antialias=True), T.CenterCrop(224)])
     for image_i in range(args.start, args.n_images+args.start):
         image_name = format(image_i, '08d')
         ground_name_label = ground_truth[image_i-1]
@@ -89,6 +89,7 @@ if __name__ == "__main__":
         if y_i == ground_label_int:
             X.append(x_i)
     X = torch.cat(X, 0) / 255
+    print(len(X))
     y = model(X).argmax(1)
 
     ###############################
