@@ -32,6 +32,7 @@ def get_args():
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--dct_type", type=str, default="full")
     parser.add_argument("--frequence_range", type=float, default=0.5)
+    parser.add_argument("--basis_type", type=str, default="dct")
     parser.add_argument(
         "--config_path", 
         default="config_example.json", 
@@ -106,6 +107,7 @@ if __name__ == "__main__":
     ###############################
     config['run']['basis_params']['dct_type'] = args.dct_type
     config['run']['basis_params']['frequence_range'][1] = args.frequence_range
+    config['run']['basis_params']['basis_type'] = args.basis_type
     dct_v = config['run']['basis_params']['dct_type']
     freq_v = config['run']['basis_params']['frequence_range'][1]
     np.save(f'{args.seed}_{dct_v}_{freq_v}_array.npy', results)
