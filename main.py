@@ -93,7 +93,6 @@ if __name__ == "__main__":
         if y_i == ground_label_int:
             X.append(x_i)
     X = torch.cat(X, 0)
-    print(len(X))
     y = model(X).argmax(1)
 
     ###############################
