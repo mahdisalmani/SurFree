@@ -78,7 +78,7 @@ if __name__ == "__main__":
     ###############################
     print("Load Data")
     X = []
-    transform = T.Compose([T.Resize(256), T.CenterCrop(224)])
+    transform = T.Compose([T.Resize(224), T.CenterCrop(224)])
     for image_i in range(args.start, args.n_images+args.start):
         image_name = format(image_i, '08d')
         ground_name_label = ground_truth[image_i-1]
