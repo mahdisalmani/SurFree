@@ -87,6 +87,7 @@ if __name__ == "__main__":
         print(image_name)
         try:
             x_i = Image.open(os.path.join("./images", f"ILSVRC2012_val_{image_name}.JPEG"))
+            x_i = x_i.convert('RGB')
             x_i = T.Compose([T.Resize((224, 224))])(x_i)
             x_i = T.Compose([T.CenterCrop(224), T.ToTensor(), T.Normalize(mean = mean, std = std)])(x_i)
             x_i = x_i[None, :, :, :]
