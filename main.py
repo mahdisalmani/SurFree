@@ -86,7 +86,7 @@ if __name__ == "__main__":
         ground_label_int = int(ground_label)
         x_i = Image.open(os.path.join("./images", f"ILSVRC2012_val_{image_name}.JPEG"))
         x_i = T.Compose([T.Resize((224, 224))])(x_i)
-        x_i = T.Compose([T.CenterCrop(224), T.ToTensor(), T.Normalize(mean = mean, std = std)])
+        x_i = T.Compose([T.CenterCrop(224), T.ToTensor(), T.Normalize(mean = mean, std = std)])(x_i)
         x_i = x_i[None, :, :, :]
         y_i = model(x_i).argmax(1)[0]
         if y_i == ground_label_int:
