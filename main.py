@@ -93,7 +93,6 @@ if __name__ == "__main__":
         if y_i == ground_label_int:
             X.append(x_i)
     X = torch.cat(X, 0)
-    print(X)
     y = model(X).argmax(1)
 
     ###############################
@@ -108,6 +107,7 @@ if __name__ == "__main__":
         y = y.cuda(0)
 
     advs, results = f_attack(model, X, y, **config["run"])
+    print(results)
     print("{:.2f} s to run".format(time.time() - time_start))
     ###############################
     config['run']['basis_params']['dct_type'] = args.dct_type
