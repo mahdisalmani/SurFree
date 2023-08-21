@@ -12,13 +12,13 @@ from torchvision import transforms as T
 from torchvision.io import read_image, ImageReadMode
 from surfree import SurFree
 
-mean = torch.Tensor([0.485, 0.456, 0.406])
-std = torch.Tensor([0.229, 0.224, 0.225])
 
 def get_model():
     model = torchvision.models.resnet50(pretrained=True).eval()
-    # normalizer = torchvision.transforms.Normalize(mean=mean, std=std)
-    return model
+    mean = torch.Tensor([0.485, 0.456, 0.406])
+    std = torch.Tensor([0.229, 0.224, 0.225])
+    normalizer = torchvision.transforms.Normalize(mean=mean, std=std)
+    return torch.nn.Sequential(normalizer, model).eval()
 
 def get_imagenet_labels():
     response = requests.get("https://s3.amazonaws.com/deep-learning-models/image-models/imagenet_class_index.json")
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     ###############################
     print("Load Data")
     X = []
-    # transform = T.Compose([T.Resize((224, 224)), T.CenterCrop(224)])
+    transform = T.Compose([T.Resize(224), T.CenterCrop(224)])
     for image_i in range(args.start, args.n_images+args.start):
         image_name = format(image_i, '08d')
         ground_name_label = ground_truth[image_i-1]
@@ -86,13 +86,11 @@ if __name__ == "__main__":
         ground_label_int = int(ground_label)
         x_i = Image.open(os.path.join("./images", f"ILSVRC2012_val_{image_name}.JPEG"))
         x_i = x_i.convert('RGB')
-        x_i = T.Compose([T.Resize((224, 224))])(x_i)
-        x_i = T.Compose([T.CenterCrop(224), T.ToTensor(), T.Normalize(mean = mean, std = std)])(x_i)
-        x_i = x_i[None, :, :, :]
-        y_i = model(x_i).argmax(1)[0]
+        x_i = transform(x_i).unsqueeze(0)
+        y_i = model(x_i / 255).argmax(1)[0]
         if y_i == ground_label_int:
             X.append(x_i)
-    X = torch.cat(X, 0)
+    X = torch.cat(X, 0) / 255
     y = model(X).argmax(1)
 
     ###############################
@@ -107,7 +105,6 @@ if __name__ == "__main__":
         y = y.cuda(0)
 
     advs, results = f_attack(model, X, y, **config["run"])
-    print(results)
     print("{:.2f} s to run".format(time.time() - time_start))
     ###############################
     config['run']['basis_params']['dct_type'] = args.dct_type
