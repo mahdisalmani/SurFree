@@ -92,7 +92,6 @@ if __name__ == "__main__":
         x_i = Image.open(os.path.join("./images", f"ILSVRC2012_val_{image_name}.JPEG"))
         x_i = x_i.convert('RGB')
         x_i = transform(x_i).unsqueeze(0)
-        torch.save(x_i, '29_s.pt')
         y_i = model(x_i).argmax(1)[0]
         if y_i == ground_label_int:
             X.append(x_i)
