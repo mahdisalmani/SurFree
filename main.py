@@ -95,8 +95,7 @@ if __name__ == "__main__":
         y_i = model(x_i).argmax(1)[0]
         if y_i == ground_label_int:
             X.append(x_i)
-        else:
-            print(image_name)
+
     X = torch.cat(X, 0)
     y = model(X).argmax(1)
 
