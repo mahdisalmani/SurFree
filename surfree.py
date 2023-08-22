@@ -544,7 +544,7 @@ class Basis:
                 print((i, j))
                 im_dct[:, :, i:(i+8),j:(j+8)] = self._f_idct2(dct[:, :, i:(i+8),j:(j+8)])
                 # im_dct[:, :, i:(i+8),j:(j+8)] = 1
-                print(im_dct.dtype)
+                print(dct.dtype)
                 break
             break
         return im_dct
