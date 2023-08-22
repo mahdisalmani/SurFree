@@ -95,8 +95,10 @@ class SurFree():
 
         self.labels = labels
         self._model = model
+        results = []
 
         # Get Starting Point
+        results.append([distance(X, self.best_advs).cpu().tolist(), self._nqueries.cpu().tolist()])
         self.best_advs = get_init_with_noise(model, X, labels) if starting_points is None else starting_points
         self.X = X
 
@@ -112,7 +114,6 @@ class SurFree():
 
         # Load Basis
         self._basis = Basis(self.X, **kwargs["basis_params"]) if "basis_params" in kwargs else Basis(self.X)
-        results = []
         results.append([distance(X, self.best_advs).cpu().tolist(), self._nqueries.cpu().tolist()])
         for step_i in range(self._steps):
             # Get candidates. Shape: (n_candidates, batch_size, image_size)
