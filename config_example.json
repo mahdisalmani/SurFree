@@ -9,7 +9,7 @@
         }
     },
     "init": {
-        "steps": 500,
+        "steps": 1,
         "max_queries": 1000,
         "BS_gamma": 0.01,
         "BS_max_iteration": 10,
