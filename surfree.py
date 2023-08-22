@@ -542,7 +542,7 @@ class Basis:
         for i in np.r_[:dct.shape[2]:8]:
             for j in np.r_[:dct.shape[3]:8]:
                 im_dct[:, :, i:(i+8),j:(j+8)] = self._f_idct2(dct[:, :, i:(i+8),j:(j+8)])
-        print(self._f_idct2(dct[:, :, 0:8,0:8]))
+        print(dct.shape)
         return im_dct
 
 
