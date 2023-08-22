@@ -448,6 +448,7 @@ class Basis:
         probs = self.X[indexes].uniform_(0, 3).long() - 1
         r_np = self.dcts[indexes] * probs
         r_np = self._inverse_dct(r_np)
+        print(self.X.shape)
         print(self.X[indexes][0][0][:4][:4])
         print(r_np)
         new_v = torch.zeros_like(self.X)
