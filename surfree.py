@@ -98,7 +98,6 @@ class SurFree():
         results = []
 
         # Get Starting Point
-        results.append([distance(X, self.best_advs).cpu().tolist(), self._nqueries.cpu().tolist()])
         self.best_advs = get_init_with_noise(model, X, labels) if starting_points is None else starting_points
         self.X = X
 
