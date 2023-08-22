@@ -542,7 +542,7 @@ class Basis:
         for i in np.r_[:dct.shape[2]:8]:
             for j in np.r_[:dct.shape[3]:8]:
                 idct_i_j = self._f_idct2(dct[:, :, i:(i+8),j:(j+8)])
-                im_dct[:, :, i:(i+8),j:(j+8)] = idct_i_j * torch.tensor([1])[:, None, None, None]
+                im_dct[:, :, i:(i+8),j:(j+8)] = idct_i_j * torch.tensor([1])[:, None, None, None].to(dct.device)
                 print(im_dct[:, :, i:(i+8),j:(j+8)])
         return im_dct
 
