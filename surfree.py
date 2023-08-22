@@ -172,7 +172,6 @@ class SurFree():
         distances = (self.X - self.best_advs).flatten(1).norm(dim=1)
         epsilon = torch.where(self._images_finished, torch.ones_like(epsilon), epsilon)
         while (epsilon == 0).any():
-            print("HIIIIIIIIIIIIIIII")
             new_directions = self._basis.get_vector(self._directions_ortho, indexes = [i for i, eps in enumerate(epsilon) if eps == 0])
             
             direction_2 = torch.where(
@@ -543,8 +542,8 @@ class Basis:
         for i in np.r_[:dct.shape[2]:8]:
             for j in np.r_[:dct.shape[3]:8]:
                 print((i, j))
-                # im_dct[:, :, i:(i+8),j:(j+8)] = self._f_idct2(dct[:, :, i:(i+8),j:(j+8)])
-                im_dct[:, :, i:(i+8),j:(j+8)] = 1
+                im_dct[:, :, i:(i+8),j:(j+8)] = self._f_idct2(dct[:, :, i:(i+8),j:(j+8)])
+                # im_dct[:, :, i:(i+8),j:(j+8)] = 1
                 print(im_dct[:, :, i:(i+8),j:(j+8)])
                 break
             break
