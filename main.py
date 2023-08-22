@@ -114,7 +114,7 @@ if __name__ == "__main__":
     print("{:.2f} s to run".format(time.time() - time_start))
     ###############################
 
-    np.save(f'{args.seed}_{dct_v}_{freq_v}_array.npy', results)
+    np.save(f'{args.seed}_{dct_v}_{freq_v}_{args.basis_type}_array.npy', results)
 
 
     ###############################
