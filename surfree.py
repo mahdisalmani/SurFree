@@ -534,7 +534,7 @@ class Basis:
         for i in np.r_[:imsize[2]:8]:
             for j in np.r_[:imsize[3]:8]:
                 dct_i_j = self._f_dct2(image[:, :, i:(i+8),j:(j+8)]) 
-                dct[:, :, i:(i+8),j:(j+8)] = dct_i_j * mask#[:dct_i_j.shape[0], :dct_i_j.shape[1]]
+                dct[:, :, i:(i+8),j:(j+8)] = dct_i_j * mask
                 print(dct[:, :, i:(i+8),j:(j+8)])
         return dct
 
@@ -543,6 +543,10 @@ class Basis:
         for i in np.r_[:dct.shape[2]:8]:
             for j in np.r_[:dct.shape[3]:8]:
                 im_dct[:, :, i:(i+8),j:(j+8)] = self._f_idct2(dct[:, :, i:(i+8),j:(j+8)])
+                print(self._f_idct2(dct[:, :, i:(i+8),j:(j+8)]))
+                print(im_dct[:, :, i:(i+8),j:(j+8)])
+                break
+            break
         return im_dct
 
 
