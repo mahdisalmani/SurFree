@@ -172,6 +172,7 @@ class SurFree():
         distances = (self.X - self.best_advs).flatten(1).norm(dim=1)
         epsilon = torch.where(self._images_finished, torch.ones_like(epsilon), epsilon)
         while (epsilon == 0).any():
+            print("HIIIIIIIIIIIIIIII")
             new_directions = self._basis.get_vector(self._directions_ortho, indexes = [i for i, eps in enumerate(epsilon) if eps == 0])
             
             direction_2 = torch.where(
