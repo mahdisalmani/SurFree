@@ -505,7 +505,7 @@ class Basis:
 
         imsize = self.X.shape
         mask_shape = (imsize[0], imsize[1], mask_shape[0], mask_shape[1])
-        mask = torch.zeros(mask_shape, dtype=torch.float32)
+        mask = torch.zeros(mask_shape)
         s = 0
         
         while n_coeff_kept > 0:
@@ -524,6 +524,7 @@ class Basis:
                         if n_coeff_kept == 0:
                             return mask
             s += 1
+        print(mask.dtype)
         return mask
 
     def dct2_8_8(self, image: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
