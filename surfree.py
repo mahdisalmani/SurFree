@@ -522,9 +522,9 @@ class Basis:
                             mask[:, :, j, i] = 1
                         n_coeff_kept -= 1
                         if n_coeff_kept == 0:
+                            print(mask)
                             return mask
             s += 1
-        print(mask)
         return mask
 
     def dct2_8_8(self, image: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
