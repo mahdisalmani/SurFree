@@ -528,7 +528,7 @@ class Basis:
 
     def dct2_8_8(self, image: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
         assert mask.shape[-2:] == (8, 8)
-
+        print(image.dtype)
         imsize = image.shape
         dct = torch.zeros_like(image)
         for i in np.r_[:imsize[2]:8]:
@@ -541,10 +541,9 @@ class Basis:
         im_dct = torch.zeros_like(dct)
         for i in np.r_[:dct.shape[2]:8]:
             for j in np.r_[:dct.shape[3]:8]:
-                print((i, j))
                 im_dct[:, :, i:(i+8),j:(j+8)] = self._f_idct2(dct[:, :, i:(i+8),j:(j+8)])
-                # im_dct[:, :, i:(i+8),j:(j+8)] = 1
-                print(dct.dtype)
+                print(self._f_idct2(dct[:, :, i:(i+8),j:(j+8)]))
+                print(im_dct[:, :, i:(i+8),j:(j+8)])
                 break
             break
         return im_dct
