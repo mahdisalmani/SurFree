@@ -522,7 +522,6 @@ class Basis:
                             mask[:, :, j, i] = 1
                         n_coeff_kept -= 1
                         if n_coeff_kept == 0:
-                            print(mask)
                             return mask
             s += 1
         return mask
@@ -536,6 +535,7 @@ class Basis:
             for j in np.r_[:imsize[3]:8]:
                 dct_i_j = self._f_dct2(image[:, :, i:(i+8),j:(j+8)]) 
                 dct[:, :, i:(i+8),j:(j+8)] = dct_i_j * mask#[:dct_i_j.shape[0], :dct_i_j.shape[1]]
+        print(dct)
         return dct
 
     def idct2_8_8(self, dct: torch.Tensor) -> torch.Tensor:
