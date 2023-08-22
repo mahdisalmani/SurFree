@@ -445,7 +445,7 @@ class Basis:
         return v
 
     def _get_vector_dct(self, indexes) -> torch.Tensor:
-        probs = self.X[indexes].uniform_(0, 3).long() - 1
+        probs = (self.X[indexes].uniform_(0, 3).long() - 1).float()
         r_np = self.dcts[indexes] * probs
         r_np = self._inverse_dct(r_np)
         new_v = torch.zeros_like(self.X)
@@ -522,7 +522,6 @@ class Basis:
                             mask[:, :, j, i] = 1
                         n_coeff_kept -= 1
                         if n_coeff_kept == 0:
-                            print(mask.dtype)
                             return mask
             s += 1
         return mask
