@@ -473,7 +473,6 @@ class Basis:
         if self.basis_type == "dct":
             self._beta = beta
             if dct_type == "8x8":
-                print("It is 8x8")
                 mask_size = (8, 8) 
                 dct_function = self.dct2_8_8
                 self._inverse_dct = self.idct2_8_8
@@ -525,6 +524,7 @@ class Basis:
                         if n_coeff_kept == 0:
                             return mask
             s += 1
+        print(mask)
         return mask
 
     def dct2_8_8(self, image: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
