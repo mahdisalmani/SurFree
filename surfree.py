@@ -535,7 +535,6 @@ class Basis:
             for j in np.r_[:imsize[3]:8]:
                 dct_i_j = self._f_dct2(image[:, :, i:(i+8),j:(j+8)]) 
                 dct[:, :, i:(i+8),j:(j+8)] = dct_i_j * mask#[:dct_i_j.shape[0], :dct_i_j.shape[1]]
-        print(dct[0][0][:5][:5])
         return dct
 
     def idct2_8_8(self, dct: torch.Tensor) -> torch.Tensor:
