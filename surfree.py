@@ -448,7 +448,7 @@ class Basis:
         probs = self.X[indexes].uniform_(0, 3).long() - 1
         r_np = self.dcts[indexes] * probs
         r_np = self._inverse_dct(r_np)
-        print(torch.all(probs == 0))
+        print(torch.all(r_np == 0))
         new_v = torch.zeros_like(self.X)
         new_v[indexes] = (r_np + self.X[indexes].normal_(std=self._beta))
         return new_v
