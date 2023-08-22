@@ -75,9 +75,6 @@ if __name__ == "__main__":
     print("Get understandable ImageNet labels")
     imagenet_labels = get_imagenet_labels()
 
-    ###############################
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    model = model.to(device)
 
     ###############################
     print("Load Labels")
@@ -94,7 +91,7 @@ if __name__ == "__main__":
         ground_label_int = int(ground_label)
         x_i = Image.open(os.path.join("./images", f"ILSVRC2012_val_{image_name}.JPEG"))
         x_i = x_i.convert('RGB')
-        x_i = transform(x_i).unsqueeze(0).to(device)
+        x_i = transform(x_i).unsqueeze(0)
         y_i = model(x_i).argmax(1)[0]
         if y_i == ground_label_int:
             X.append(x_i)
@@ -108,6 +105,11 @@ if __name__ == "__main__":
     time_start = time.time()
 
     f_attack = SurFree(**config["init"])
+
+    if torch.cuda.is_available():
+        model = model.cuda(0)
+        X = X.cuda(0)
+        y = y.cuda(0)
 
     advs, results = f_attack(model, X, y, **config["run"])
     print("{:.2f} s to run".format(time.time() - time_start))
