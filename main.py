@@ -108,7 +108,7 @@ if __name__ == "__main__":
         model = model.cuda(0)
         X = X.cuda(0)
         y = y.cuda(0)
-
+    print(X.dtype)
     advs, results = f_attack(model, X, y, **config["run"])
     print("{:.2f} s to run".format(time.time() - time_start))
     ###############################
