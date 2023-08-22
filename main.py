@@ -65,6 +65,11 @@ if __name__ == "__main__":
         config = json.load(open(args.config_path, "r"))
     else:
         config = {"init": {}, "run": {"epsilons": None}}
+    config['run']['basis_params']['dct_type'] = args.dct_type
+    config['run']['basis_params']['frequence_range'][1] = args.frequence_range
+    config['run']['basis_params']['basis_type'] = args.basis_type
+    dct_v = config['run']['basis_params']['dct_type']
+    freq_v = config['run']['basis_params']['frequence_range'][1]
 
     ###############################
     print("Get understandable ImageNet labels")
@@ -107,11 +112,6 @@ if __name__ == "__main__":
     advs, results = f_attack(model, X, y, **config["run"])
     print("{:.2f} s to run".format(time.time() - time_start))
     ###############################
-    config['run']['basis_params']['dct_type'] = args.dct_type
-    config['run']['basis_params']['frequence_range'][1] = args.frequence_range
-    config['run']['basis_params']['basis_type'] = args.basis_type
-    dct_v = config['run']['basis_params']['dct_type']
-    freq_v = config['run']['basis_params']['frequence_range'][1]
     np.save(f'{args.seed}_{dct_v}_{freq_v}_array.npy', results)
 
 
