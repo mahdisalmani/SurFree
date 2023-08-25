@@ -135,8 +135,11 @@ class SurFree():
             if self._images_finished.all():
                 print("Max queries attained for all the images.")
                 break
-        if self.final_line_search:
-            self.best_advs = self._binary_search(self.best_advs,  boost=False)
+        # The below method does not count queries at the end. 
+        # As a result, to make fair comparisons with other methods, the method is commented.
+
+        # if self.final_line_search:
+        #     self.best_advs = self._binary_search(self.best_advs,  boost=False)
 
         results.append([distance(X, self.best_advs).cpu().tolist(), self._nqueries.cpu().tolist()])
 
