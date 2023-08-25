@@ -9,7 +9,6 @@ import torchvision
 
 from PIL import Image
 from torchvision import transforms as T
-from torchvision.io import read_image, ImageReadMode
 from surfree import SurFree
 
 
@@ -83,13 +82,14 @@ if __name__ == "__main__":
     ###############################
     print("Load Data")
     X = []
+    # Different preprocessing steps from the steps in the orignial Surfree method
     transform = T.Compose([T.Resize((224, 224)), T.CenterCrop(224), T.ToTensor()])
     for image_i in range(args.start, args.n_images+args.start):
         image_name = format(image_i, '08d')
         ground_name_label = ground_truth[image_i-1]
         ground_label =  ground_name_label.split()[1]
         ground_label_int = int(ground_label)
-        x_i = Image.open(os.path.join("./images", f"ILSVRC2012_val_{image_name}.JPEG"))
+        x_i = Image.open(os.path.join("./data", f"ILSVRC2012_val_{image_name}.JPEG"))
         x_i = x_i.convert('RGB')
         x_i = transform(x_i).unsqueeze(0)
         y_i = model(x_i).argmax(1)[0]
