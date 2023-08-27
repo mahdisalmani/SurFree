@@ -32,6 +32,7 @@ def get_args():
     parser.add_argument("--dct_type", type=str, default="full")
     parser.add_argument("--frequence_range", type=float, default=0.5)
     parser.add_argument("--basis_type", type=str, default="dct")
+    parser.add_argument("--function", type=str, default="constant")
     parser.add_argument(
         "--config_path", 
         default="config_example.json", 
@@ -67,6 +68,7 @@ if __name__ == "__main__":
     config['run']['basis_params']['dct_type'] = args.dct_type
     config['run']['basis_params']['frequence_range'][1] = args.frequence_range
     config['run']['basis_params']['basis_type'] = args.basis_type
+    config['run']['basis_params']['function'] = args.function
     dct_v = config['run']['basis_params']['dct_type']
     freq_v = config['run']['basis_params']['frequence_range'][1]
 
