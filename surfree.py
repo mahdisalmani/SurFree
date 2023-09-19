@@ -526,7 +526,7 @@ class Basis:
         #                 if n_coeff_kept == 0:
         #                     return mask
         #     s += 1
-        mask[:, :, int(mask_shape[0]*frequence_range[1]), int(mask_shape[1]*frequence_range[1])] = 1
+        mask[:, :, :int(mask_shape[0]*frequence_range[1]), :int(mask_shape[1]*frequence_range[1])] = 1
         print(mask)
         return mask
 
