@@ -526,8 +526,8 @@ class Basis:
         #                 if n_coeff_kept == 0:
         #                     return mask
         #     s += 1
-        mask[:, :, :int(mask_shape[0]*frequence_range[1]), :int(mask_shape[1]*frequence_range[1])] = 1
-        print(mask_shape[0]*frequence_range[1])
+        mask[:, :, :int(mask_shape[2]*frequence_range[1]), :int(mask_shape[3]*frequence_range[1])] = 1
+        # print(mask_shape[0]*frequence_range[1])
         return mask
 
     def dct2_8_8(self, image: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
