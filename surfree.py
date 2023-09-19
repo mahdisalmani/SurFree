@@ -508,24 +508,25 @@ class Basis:
         imsize = self.X.shape
         mask_shape = (imsize[0], imsize[1], mask_shape[0], mask_shape[1])
         mask = torch.zeros(mask_shape)
-        s = 0
+        # s = 0
         
-        while n_coeff_kept > 0:
-            for i in range(min(s + 1, mask_shape[2])):
-                for j in range(min(s + 1, mask_shape[3])):
-                    if i + j == s:
-                        if n_coeff_to_start > 0:
-                            n_coeff_to_start -= 1
-                            continue
+        # while n_coeff_kept > 0:
+        #     for i in range(min(s + 1, mask_shape[2])):
+        #         for j in range(min(s + 1, mask_shape[3])):
+        #             if i + j == s:
+        #                 if n_coeff_to_start > 0:
+        #                     n_coeff_to_start -= 1
+        #                     continue
 
-                        if s % 2:
-                            mask[:, :, i, j] = 1
-                        else:
-                            mask[:, :, j, i] = 1
-                        n_coeff_kept -= 1
-                        if n_coeff_kept == 0:
-                            return mask
-            s += 1
+        #                 if s % 2:
+        #                     mask[:, :, i, j] = 1
+        #                 else:
+        #                     mask[:, :, j, i] = 1
+        #                 n_coeff_kept -= 1
+        #                 if n_coeff_kept == 0:
+        #                     return mask
+        #     s += 1
+        mask[:, :, mask_shape[0]*frequence_range, mask_shape[1]*frequence_range] = 1
         return mask
 
     def dct2_8_8(self, image: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:
